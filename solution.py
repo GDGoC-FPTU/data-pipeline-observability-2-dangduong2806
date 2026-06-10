@@ -82,13 +82,15 @@ def validate(data):
         if record.get('price', 0) <= 0:
             error_count += 1
             continue
-        if record.get('category') is None:
+        if record.get('category') is None or not record.get('category'):
             error_count += 1
             continue
 
         valid_records.append(record)
 
-    print(f"Validation complete. Valid: {len(valid_records)}, Errors: {error_count}")
+    # print(f"Validation summary: {len(valid_records)} valid records, {error_count} dropped records.")
+    print(f"{len(valid_records)} records processed, {error_count} errors found.")
+
     return valid_records
 
 
@@ -129,7 +131,7 @@ def load(df, output_path):
     """
     # TODO: Luu DataFrame ra CSV
     df.to_csv(output_path, index=False)
-    
+
     print(f"Data saved to {output_path}")
 
 
